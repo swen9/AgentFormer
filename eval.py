@@ -2,7 +2,7 @@ import os
 import numpy as np
 import argparse
 from data.nuscenes_pred_split import get_nuscenes_pred_split
-from data.ethucy_split import get_ethucy_split
+from data.ethucy_split import get_ethucy_split, get_objects_3d_traj_split
 from utils.utils import print_log, AverageMeter, isfile, print_log, AverageMeter, isfile, isfolder, find_unique_common_from_lists, load_list_from_folder, load_txt_file
 
 
@@ -57,9 +57,13 @@ if __name__ == '__main__':
         gt_dir = f'{data_root}/label/{args.data}'
         seq_train, seq_val, seq_test = get_nuscenes_pred_split(data_root)
         seq_eval = globals()[f'seq_{args.data}']
-    else:                            # ETH/UCY
+    if dataset in {'eth', 'hotel', 'univ', 'zara1', 'zara2'}:          # ETH/UCY
         gt_dir = f'datasets/eth_ucy/{args.dataset}'
         seq_train, seq_val, seq_test = get_ethucy_split(args.dataset)
+        seq_eval = globals()[f'seq_{args.data}']
+    else: 
+        gt_dir = f'datasets/{args.dataset}'
+        seq_train, seq_val, seq_test = get_objects_3d_traj_split(args.dataset)
         seq_eval = globals()[f'seq_{args.data}']
 
     if args.log_file is None:

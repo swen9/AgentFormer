@@ -30,6 +30,10 @@ class preprocess(object):
         elif parser.dataset in {'eth', 'hotel', 'univ', 'zara1', 'zara2'}:
             label_path = f'{data_root}/{parser.dataset}/{seq_name}.txt'
             delimiter = ' '
+        elif parser.dataset == 'objects_3d_traj':
+            label_path = f'{data_root}/{parser.dataset}/{seq_name}.txt'
+            delimiter = ' '
+            self.init_frame = 0
         else:
             assert False, 'error'
 

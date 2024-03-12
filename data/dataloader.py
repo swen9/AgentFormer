@@ -2,7 +2,7 @@ from data.nuscenes_pred_split import get_nuscenes_pred_split
 import os, random, numpy as np, copy
 
 from .preprocessor import preprocess
-from .ethucy_split import get_ethucy_split
+from .ethucy_split import get_ethucy_split, get_objects_3d_traj_split
 from utils.utils import print_log
 
 
@@ -24,6 +24,10 @@ class data_generator(object):
         elif parser.dataset in {'eth', 'hotel', 'univ', 'zara1', 'zara2'}:
             data_root = parser.data_root_ethucy            
             seq_train, seq_val, seq_test = get_ethucy_split(parser.dataset)
+            self.init_frame = 0
+        elif parser.dataset == 'objects_3d_traj':
+            data_root = parser.data_root_objects_3d_traj
+            seq_train, seq_val, seq_test = get_objects_3d_traj_split(data_root)
             self.init_frame = 0
         else:
             raise ValueError('Unknown dataset!')

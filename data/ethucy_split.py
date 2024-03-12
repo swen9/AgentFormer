@@ -30,3 +30,15 @@ def get_ethucy_split(dataset):
           train.append(f'{seq}_train')
           val.append(f'{seq}_val')
      return train, val, test
+
+def get_objects_3d_traj_split(dataset):
+     seqs = [
+          'objects_3d_traj',
+     ]
+
+     train, val, test = [], [], []
+     for seq in seqs:
+          train.append(f'{seq}_train')
+          val.append(f'{seq}_val')
+          test.append(f'{seq}_val')
+     return train, val, test
